@@ -1,0 +1,52 @@
+name: "Pulsar DALI Control"
+version: "0.12.0"
+slug: "pulsar_dali_control"
+description: >-
+  Native Glamox/ES-SYSTEM Pulsar DALI gateway with control gear, groups, scenes,
+  commissioning/address repair, DALI-2 inputs, local Home Assistant API and optional secured remote HTTPS API.
+arch:
+  - aarch64
+startup: application
+boot: auto
+init: false
+stage: experimental
+uart: true
+udev: true
+devices:
+  - /dev/i2c-1
+ingress: true
+ingress_port: 8099
+panel_icon: mdi:lightbulb-group
+panel_title: "Pulsar DALI"
+ports:
+  8099/tcp: null
+  8443/tcp: 8443
+ports_description:
+  8099/tcp: "Local API / Home Assistant ingress (normally not exposed)"
+  8443/tcp: "Remote HTTPS API (only listens when remote_api_enabled is true)"
+options:
+  dali1_device: "/dev/ttyAMA3"
+  dali2_device: "/dev/ttyAMA4"
+  dali3_device: "/dev/ttyAMA5"
+  baudrate: 115200
+  response_timeout: 1.5
+  led_enabled: true
+  led_pulse_ms: 80
+  i2c_bus: 1
+  mcp_address: 32
+  auto_scan: false
+  poll_interval: 30
+  remote_api_enabled: false
+schema:
+  dali1_device: str
+  dali2_device: str
+  dali3_device: str
+  baudrate: "int(1200,3000000)"
+  response_timeout: "float(0.2,10.0)"
+  led_enabled: bool
+  led_pulse_ms: "int(20,1000)"
+  i2c_bus: "int(0,10)"
+  mcp_address: "int(3,119)"
+  auto_scan: bool
+  poll_interval: "int(5,600)"
+  remote_api_enabled: bool
